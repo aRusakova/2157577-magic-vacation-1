@@ -144,43 +144,65 @@
     font-size: 1.2rem;
   }
 
-  &::before {
-    content: counter(li);
-    counter-increment: li;
+  .rules__bulletBlock {
     position: absolute;
     top: 0;
     left: 0;
     width: 4.5rem;
     height: 4.5rem;
-    font-family: $font-alt;
-    font-weight: 400;
-    font-size: 2.4rem;
-    background-color: $c-purple;
-    border-radius: 50%;
-    line-height: 5rem;
-    text-align: center;
-    animation: showBullet 0.5s $timing-function-spring-up backwards;
 
     @media (max-width: $tablet) and (orientation: portrait) {
       top: 1rem;
       width: 2.5rem;
       height: 2.5rem;
-      line-height: 3rem;
-      font-size: 1.4rem;
     }
 
     @media (max-width: $mobile) and (orientation: landscape) {
       top: 0.6rem;
       width: 2.5rem;
       height: 2.5rem;
-      line-height: 3rem;
-      font-size: 1.4rem;
+    }
+
+    .rules__bullet {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $c-purple;
+      border-radius: 50%;
+      animation: zoomIn 0.5s $timing-function-spring-up backwards;
+    }
+
+    &::before {
+      display: inherit;
+      width: 100%;
+      content: counter(li);
+      counter-increment: li;
+      font-family: $font-alt;
+      font-weight: 400;
+      font-size: 2.4rem;
+      line-height: 5rem;
+      text-align: center;
+      animation: fadeIn 0.5s backwards;
+
+      @media (max-width: $tablet) and (orientation: portrait) {
+        line-height: 3rem;
+        font-size: 1.4rem;
+      }
+
+      @media (max-width: $mobile) and (orientation: landscape) {
+        line-height: 3rem;
+        font-size: 1.4rem;
+      }
     }
   }
 
   p {
     margin: 0;
-    animation: showText 0.5s ease-out 0.3s backwards;
+    animation: fadeIn 0.5s ease-out 0.4s backwards,
+      slideInRight 0.5s ease-out 0.7s backwards;
 
     @media (max-width: $tablet) and (orientation: portrait) {
       min-height: calc(1.4rem * 2.2);
@@ -190,34 +212,19 @@
 
 @for $i from 1 through 4 {
   .rules__item:nth-child(#{$i}) {
-    &::before {
+    .rules__bulletBlock {
+      &::before {
+        animation-delay: #{$i * 0.2}s;
+      }
+    }
+
+    .rules__bullet {
       animation-delay: #{$i * 0.2}s;
     }
+
     p {
       animation-delay: #{$i * 0.2}s;
     }
-  }
-}
-
-@keyframes showBullet {
-  from {
-    color: transparent;
-    transform: scale(0);
-  }
-  to {
-    color: $c-light;
-    transform: scale(1);
-  }
-}
-
-@keyframes showText {
-  from {
-   opacity: 0;
-   transform: translateX(2rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
   }
 }
 
@@ -227,14 +234,15 @@
   right: 5.6rem;
 
   .rules__linkText {
-    animation: showBtnText 0.5s 1.2s ease backwards;
+    animation: fadeIn 0.5s 1.2s ease backwards;
   }
 
-  &::before { 
+  &::before {
     left: unset;
     right: 0;
     transform: translate(0, -50%);
-    animation: showBtn 0.5s 0.9s ease-out backwards;
+    animation: fadeIn 0.5s 0.9s ease-out backwards,
+      strechIn 0.5s 0.9s ease-out backwards;
   }
 
   @media (min-width: $stop-scaling) {
@@ -255,25 +263,5 @@
   @media (max-width: $mobile) and (orientation: landscape) {
     bottom: 2rem;
     right: 1.5rem;
-  }
-}
-
-@keyframes showBtn {
-  0% {
-    opacity: 0;
-    width: 0%;
-  }
-  100% {
-    opacity: 1;
-    width: 100%;
-  }
-}
-
-@keyframes showBtnText {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }

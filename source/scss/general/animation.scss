@@ -1,0 +1,41 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+
+}
+
+@keyframes strechIn {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(2rem);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
